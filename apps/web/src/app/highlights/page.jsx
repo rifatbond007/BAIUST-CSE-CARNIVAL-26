@@ -135,8 +135,8 @@ function AnimatedCounter({ value, suffix = "" }) {
 function TimelineCard({ fest, index }) {
   const [expanded, setExpanded] = useState(false);
   const isLeft = index % 2 === 0;
-  const prevParticipants = index < fests.length - 1 ? fests[index + 1].participants : null;
-  const growthPct = prevParticipants ? Math.round(((fest.participants - prevParticipants) / prevParticipants) * 100) : null;
+  const prev = index < fests.length - 1 ? fests[index + 1].participants : null;
+  const growthPct = prev ? Math.round(((fest.participants - prev) / prev) * 100) : null;
 
   return (
     <div className="relative">
@@ -144,22 +144,21 @@ function TimelineCard({ fest, index }) {
       <div className="hidden lg:flex items-start">
         <div className={`w-[calc(50%-28px)] ${isLeft ? "" : "ml-auto"}`}>
           <motion.div
-            initial={{ opacity: 0, x: isLeft ? -30 : 30, y: 10 }}
-            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            initial={{ opacity: 0, x: isLeft ? -24 : 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
           >
             <CardContent fest={fest} expanded={expanded} setExpanded={setExpanded} index={index} growthPct={growthPct} />
           </motion.div>
         </div>
-        {/* Center column */}
         <div className="w-14 flex-shrink-0 flex flex-col items-center">
-          {/* Connector line from card edge to dot */}
+          {/* Connector line from card to dot */}
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
+            transition={{ delay: 0.2, duration: 0.35, ease: "easeOut" }}
             className={`h-0.5 bg-[#2E3A2E]/30 mt-5 ${isLeft ? "origin-left w-full" : "origin-right w-full"}`}
             style={{ transformOrigin: isLeft ? "left center" : "right center" }}
           />
@@ -167,11 +166,22 @@ function TimelineCard({ fest, index }) {
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.3 }}
-            className="w-10 h-10 rounded-full bg-white border-2 border-[#2E3A2E]/60 shadow-sm flex items-center justify-center z-10 relative -mt-2.5"
+            transition={{ type: "spring", stiffness: 250, damping: 18, delay: 0.25 }}
+            className="w-10 h-10 rounded-full bg-white border-2 border-[#2E3A2E]/50 shadow-sm flex items-center justify-center z-10 relative -mt-2.5"
           >
             <div className="w-3 h-3 rounded-full bg-[#2E3A2E]" />
           </motion.div>
+          {growthPct && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded mt-1.5 -ml-0.5"
+            >
+              +{growthPct}%
+            </motion.div>
+          )}
         </div>
         <div className="w-[calc(50%-28px)]" />
       </div>
@@ -184,9 +194,7 @@ function TimelineCard({ fest, index }) {
           </div>
           <div className="h-px flex-1 bg-gray-200" />
           {growthPct && (
-            <span className="text-emerald-600 text-[10px] font-bold flex items-center gap-0.5">
-              <TrendingUp size={10} />+{growthPct}%
-            </span>
+            <span className="text-emerald-600 text-[10px] font-bold">+{growthPct}%</span>
           )}
         </div>
         <motion.div
@@ -217,13 +225,13 @@ function CardContent({ fest, expanded, setExpanded, index, growthPct }) {
       <div className="flex items-start justify-between mb-4 relative">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#2E3A2E]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2E3A2E]" />
             <span className="text-[#2E3A2E]/30 text-[10px] font-bold uppercase tracking-widest">
               Edition {fest.year}
             </span>
             {growthPct && (
-              <span className="text-emerald-600 text-[10px] font-bold flex items-center gap-0.5 bg-emerald-50 px-1.5 py-0.5 rounded">
-                <TrendingUp size={10} />+{growthPct}%
+              <span className="text-emerald-600 text-[10px] font-bold bg-emerald-50 px-1.5 py-0.5 rounded">
+                +{growthPct}%
               </span>
             )}
           </div>
@@ -407,130 +415,68 @@ export default function HighlightsPage() {
         </div>
       </section>
 
-      {/* ─── Growth Trajectory ─── */}
-      <section className="relative bg-[#2E3A2E] py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-[#1B261B] opacity-50" />
-        <div
-          className="absolute inset-0 opacity-[0.04] pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(#fff 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }}
-        />
-        <div className="relative z-10 container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10"
-          >
-            <span className="text-white/30 text-xs font-bold uppercase tracking-[0.3em] mb-3 block">
-              — Growth Trajectory
-            </span>
-            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
-              From 280
-              <br className="sm:hidden" />
-              <span className="text-white/30"> to 1,200</span>
-            </h2>
-          </motion.div>
-
-          {/* Desktop milestone path */}
-          <div className="hidden md:block max-w-4xl mx-auto">
-            {/* SVG connecting path */}
-            <svg className="w-full h-20" viewBox="0 0 900 80" preserveAspectRatio="none">
-              <motion.path
-                d="M50,70 C200,70 250,10 400,10 C550,10 600,70 750,70 C825,70 850,70 850,70"
-                fill="none"
-                stroke="rgba(255,255,255,0.2)"
-                strokeWidth="2"
-                strokeDasharray="8 4"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-              />
-            </svg>
-
-            <div className="relative -mt-14">
-              <div className="flex justify-between px-[30px]">
-                {[...fests].reverse().map((fest, i) => (
-                  <motion.div
-                    key={fest.year}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + i * 0.15 }}
-                    className="flex flex-col items-center"
-                  >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.5 + i * 0.15 }}
-                      className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center mb-3"
-                    >
-                      <div className="w-3 h-3 rounded-full bg-[#2E3A2E]" />
-                    </motion.div>
-                    <div className="text-white font-black text-lg">{fest.year}</div>
-                    <div className="text-white/70 font-black text-2xl mt-1">
-                      <AnimatedCounter value={fest.participants} />
-                    </div>
-                    <div className="text-white/30 text-[10px] font-semibold uppercase tracking-wider mt-0.5">
-                      Participants
-                    </div>
-                    {i < fests.length - 1 && (
-                      <div className="flex items-center gap-1 mt-2 text-emerald-400 text-xs font-bold">
-                        <TrendingUp size={10} />
-                        {Math.round(((fest.participants - fests[fests.length - 2 - i].participants) / fests[fests.length - 2 - i].participants) * 100)}%
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile simple stat row */}
-          <div className="md:hidden grid grid-cols-5 gap-2 max-w-md mx-auto">
-            {[...fests].reverse().map((fest) => (
-              <div key={fest.year} className="text-center">
-                <div className="text-white font-black text-sm">{fest.year}</div>
-                <div className="mt-2 h-16 flex items-end justify-center">
-                  <motion.div
-                    initial={{ height: 0 }}
-                    whileInView={{ height: `${(fest.participants / 1200) * 100}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="w-4 rounded-t bg-white/70"
-                    style={{ minHeight: "12px" }}
-                  />
-                </div>
-                <div className="text-white font-black text-xs mt-1">
-                  <AnimatedCounter value={fest.participants} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Timeline ─── */}
-      <section className="py-24">
+      {/* ─── Growth Bar ─── */}
+      <section className="relative -mt-8 z-20">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-14"
+            className="bg-white border border-gray-100 rounded-xl shadow-sm p-6 sm:p-8"
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <TrendingUp size={14} className="text-[#2E3A2E]/30" />
+              <span className="text-[#2E3A2E]/30 text-xs font-bold uppercase tracking-[0.3em]">
+                Growth Trajectory
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-6">
+              {[...fests].reverse().map((fest) => (
+                <div key={fest.year} className="text-center">
+                  <div className="text-lg font-black text-[#2E3A2E]">{fest.year}</div>
+                  <div className="mt-3 h-24 flex items-end justify-center">
+                    <motion.div
+                      initial={{ height: 0 }}
+                      whileInView={{ height: `${(fest.participants / 1200) * 100}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      className="w-6 rounded-t-lg bg-[#2E3A2E]/70"
+                      style={{ minHeight: "20px" }}
+                    />
+                  </div>
+                  <div className="text-xs font-black text-[#2E3A2E] mt-2">
+                    <AnimatedCounter value={fest.participants} />
+                  </div>
+                  <div className="text-[#2E3A2E]/50 text-[10px] font-semibold uppercase tracking-wider">
+                    Guests
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─── Timeline ─── */}
+      <section className="py-24 bg-[#F5F5F5]">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
           >
             <span className="text-[#2E3A2E]/30 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
               — Edition Timeline
             </span>
-            <h2 className="text-4xl md:text-5xl font-black text-[#2E3A2E] leading-none">
+            <h2 className="text-4xl md:text-5xl font-black text-[#2E3A2E] leading-none mb-4">
               Every Edition
               <br />
               <span className="text-[#2E3A2E]/30">A Leap Forward</span>
             </h2>
+            <p className="text-[#2E3A2E]/40 text-sm max-w-md mx-auto">
+              From our first gathering of 280 minds to 1,200+ — watch the journey unfold
+            </p>
           </motion.div>
 
           <div className="relative max-w-4xl mx-auto">
@@ -547,7 +493,7 @@ export default function HighlightsPage() {
       </section>
 
       {/* ─── CTA ─── */}
-      <section className="pb-24 bg-[#F5F5F5]">
+      <section className="pb-24">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
