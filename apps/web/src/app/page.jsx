@@ -150,6 +150,42 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-[#F5F5F5]/60 via-transparent to-white pointer-events-none z-10" />
       <CodeRain />
 
+      {/* Decorative trees on each side */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.8, duration: 0.6 }}
+        className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-[12] pointer-events-none"
+      >
+        <svg viewBox="0 0 80 100" className="w-20 md:w-28 opacity-[0.07]">
+          <path d="M40 95 L40 55" stroke="#2E3A2E" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M40 68 Q22 56 16 48" stroke="#2E3A2E" strokeWidth="2" strokeLinecap="round" />
+          <path d="M40 63 Q58 52 64 44" stroke="#2E3A2E" strokeWidth="2" strokeLinecap="round" />
+          <path d="M40 58 Q18 44 12 34" stroke="#2E3A2E" strokeWidth="2" strokeLinecap="round" />
+          <path d="M40 53 Q62 40 68 30" stroke="#2E3A2E" strokeWidth="2" strokeLinecap="round" />
+          {[[16,48],[10,46],[20,43],[64,44],[70,41],[58,39],[12,34],[6,31],[16,29],[68,30],[74,27],[64,25],[40,45],[40,35]].map(([cx,cy],i) => (
+            <circle key={i} cx={cx} cy={cy} r="2.5" fill="#2E3A2E" />
+          ))}
+        </svg>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.8, duration: 0.6 }}
+        className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-[12] pointer-events-none"
+      >
+        <svg viewBox="0 0 80 100" className="w-20 md:w-28 opacity-[0.07] scale-x-[-1]">
+          <path d="M40 95 L40 55" stroke="#2E3A2E" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M40 68 Q22 56 16 48" stroke="#2E3A2E" strokeWidth="2" strokeLinecap="round" />
+          <path d="M40 63 Q58 52 64 44" stroke="#2E3A2E" strokeWidth="2" strokeLinecap="round" />
+          <path d="M40 58 Q18 44 12 34" stroke="#2E3A2E" strokeWidth="2" strokeLinecap="round" />
+          <path d="M40 53 Q62 40 68 30" stroke="#2E3A2E" strokeWidth="2" strokeLinecap="round" />
+          {[[16,48],[10,46],[20,43],[64,44],[70,41],[58,39],[12,34],[6,31],[16,29],[68,30],[74,27],[64,25],[40,45],[40,35]].map(([cx,cy],i) => (
+            <circle key={i} cx={cx} cy={cy} r="2.5" fill="#2E3A2E" />
+          ))}
+        </svg>
+      </motion.div>
+
       {/* Side fillup bars */}
       <div className="absolute inset-y-0 left-8 z-[15] flex flex-col justify-center space-y-[3px]">
         {[...Array(12)].map((_, i) => (
