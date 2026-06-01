@@ -848,11 +848,39 @@ const Speakers = () => (
   </section>
 );
 
+const eventIcons = {
+  "Inauguration": Calendar,
+  "IUPC": Cpu,
+  "Code Battle": Code,
+  "Hackathon": Zap,
+  "Gaming Fest": Gamepad2,
+  "Cultural": CheckCircle,
+  "Closing": Trophy,
+};
+
+const eventColors = {
+  "Inauguration": "bg-blue-100 text-blue-600",
+  "IUPC": "bg-purple-100 text-purple-600",
+  "Code Battle": "bg-amber-100 text-amber-600",
+  "Hackathon": "bg-cyan-100 text-cyan-600",
+  "Gaming Fest": "bg-rose-100 text-rose-600",
+  "Cultural": "bg-emerald-100 text-emerald-600",
+  "Closing": "bg-indigo-100 text-indigo-600",
+};
+
+const getEventMeta = (label) => {
+  const key = Object.keys(eventIcons).find((k) => label.startsWith(k));
+  const Icon = key ? eventIcons[key] : Calendar;
+  const color = key ? eventColors[key] : "bg-gray-100 text-gray-600";
+  return { Icon, color };
+};
+
 const Timeline = () => {
   const days = [
     {
       day: "Day 01",
       date: "July 11, 2026",
+      tagline: "Kickoff & Qualifiers",
       events: [
         { time: "09:00 AM", label: "Inauguration & Opening Ceremony" },
         { time: "10:30 AM", label: "IUPC — Round 1" },
@@ -865,6 +893,7 @@ const Timeline = () => {
     {
       day: "Day 02",
       date: "July 12, 2026",
+      tagline: "Finals & Closing",
       events: [
         { time: "09:00 AM", label: "IUPC — Finals" },
         { time: "10:00 AM", label: "Hackathon — Judging" },
@@ -876,7 +905,7 @@ const Timeline = () => {
   ];
 
   return (
-    <section className="py-24 bg-white" id="schedule">
+    <section className="py-24 bg-[#F5F5F5]" id="schedule">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -894,64 +923,58 @@ const Timeline = () => {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {days.map((day, di) => (
             <motion.div
               key={di}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: di * 0.15 }}
+              className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm"
             >
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-[#2E3A2E] flex items-center justify-center text-white font-black text-xs shadow-sm">
+              <div className="bg-[#2E3A2E] px-6 py-4 flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-white font-black text-sm">
                   {di === 0 ? "D1" : "D2"}
                 </div>
                 <div>
-                  <div className="text-[#2E3A2E] font-black text-sm">
+                  <div className="text-white font-black text-sm">
                     {day.day}
                   </div>
-                  <div className="text-[#2E3A2E]/40 text-xs">{day.date}</div>
+                  <div className="text-white/50 text-xs flex items-center gap-2">
+                    <span>{day.date}</span>
+                    <span className="w-1 h-1 rounded-full bg-white/30" />
+                    <span>{day.tagline}</span>
+                  </div>
                 </div>
               </div>
-              <div className="relative pl-8">
-                <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-[#2E3A2E]/15" />
-                {day.events.map((evt, ei) => (
-                  <div key={ei} className="relative pb-6 last:pb-0">
-                    {ei < day.events.length - 1 && (
-                      <motion.div
-                        initial={{ scaleY: 0 }}
-                        whileInView={{ scaleY: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="absolute left-[-17px] top-[14px] bottom-0 w-0.5 bg-[#2E3A2E]/10"
-                        style={{ transformOrigin: "top center" }}
-                      />
-                    )}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.15, type: "spring", stiffness: 200 }}
-                      className="absolute left-[-21px] top-[6px] z-10"
+
+              <div className="p-5">
+                {day.events.map((evt, ei) => {
+                  const { Icon, color } = getEventMeta(evt.label);
+                  return (
+                    <div
+                      key={ei}
+                      className="flex items-start gap-4 py-3 border-b border-gray-50 last:border-0"
                     >
-                      <div className="w-[10px] h-[10px] rounded-full bg-white border-2 border-[#2E3A2E]/40 shadow-sm" />
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <span className="text-[#2E3A2E]/30 text-[11px] font-mono font-bold leading-none">
-                        {evt.time}
+                      <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center shrink-0`}>
+                        <Icon size={14} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[#2E3A2E]/80 text-sm font-semibold leading-tight">
+                          {evt.label}
+                        </div>
+                        <span className="text-[#2E3A2E]/30 text-[11px] font-mono font-bold">
+                          {evt.time}
+                        </span>
+                      </div>
+                      <span className="text-[#2E3A2E]/20 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap mt-0.5">
+                        {ei === 0 && di === 0 ? "Opener" : ""}
+                        {ei === day.events.length - 1 && di === 1 ? "Grand Finale" : ""}
                       </span>
-                      <p className="text-[#2E3A2E]/80 text-sm mt-1 leading-snug">
-                        {evt.label}
-                      </p>
-                    </motion.div>
-                  </div>
-                ))}
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
           ))}
@@ -992,7 +1015,7 @@ const FAQ = () => {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="py-24 bg-[#F5F5F5]" id="faq">
+    <section className="py-24 bg-white" id="faq">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
