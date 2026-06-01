@@ -34,80 +34,71 @@ const CountdownBox = ({ value, label }) => (
   </div>
 );
 
-const codeBlocks = [
-  {
-    lines: [
-      "$ npx create-carnival",
-      "> Initializing CSE Carnival 2026...",
-      "> ✓ Environment ready",
-      "> Starting dev server...",
-    ],
-    x: "4%", y: "10%", delay: 0,
-  },
-  {
-    lines: [
-      "import { Innovation } from 'cse';",
-      "const carnival = await deploy();",
-      "carnival.on('ready', () => {",
-      "  console.log('Let the games begin!');",
-      "});",
-    ],
-    x: "68%", y: "14%", delay: 1.5,
-  },
-  {
-    lines: [
-      "> git push origin main",
-      "> Compiling 42 events...",
-      "> Merging creativity & code",
-      "> ✓ Deployed to production",
-    ],
-    x: "8%", y: "68%", delay: 0.8,
-  },
-  {
-    lines: [
-      "while (campus.alive) {",
-      "  minds.ignite();",
-      "  dreams.compile();",
-      "  future.build();",
-      "}",
-    ],
-    x: "72%", y: "72%", delay: 2.2,
-  },
-  {
-    lines: [
-      "$ ./run --mode=carnival",
-      "> Loading modules...",
-      "> 1500+ participants ready",
-      "> System: OPTIMAL",
-    ],
-    x: "50%", y: "90%", delay: 1.2,
-  },
+const codeTokens = [
+  "const", "let", "var", "function", "return", "import", "export",
+  "class", "extends", "async", "await", "console.log", "true", "false",
+  "null", "undefined", "new", "this", "=>", "===?", "++", "--",
+  "try", "catch", "throw", "Promise", "resolve", "reject", "then",
+  "catch", "finally", "if", "else", "for", "while", "do", "switch",
+  "break", "continue", "case", "default", "map", "filter", "reduce",
+  "forEach", "length", "push", "pop", "shift", "unshift",
+  "{", "}", "(", ")", "[", "]", ";", ":", ",", ".", "=>",
+  "===", "!==", "&&", "||", "<<", ">>", "++i", "i++",
+  "#include", "int", "float", "double", "char", "void",
+  "cout", "cin", "endl", "printf", "scanf", "return 0",
+  "def", "print", "range", "len", "str", "int", "float", "list",
+  "dict", "tuple", "set", "True", "False", "None", "self",
+  "npm", "install", "start", "run", "dev", "build", "test",
+  "git", "commit", "push", "pull", "merge", "branch", "clone",
 ];
 
-const CodeLines = () => (
-  <div className="absolute inset-0 pointer-events-none z-[5] overflow-hidden">
-    {codeBlocks.map((block, bi) => (
-      <div
-        key={bi}
-        className="absolute"
-        style={{ left: block.x, top: block.y }}
+const columns = [];
+for (let i = 0; i < 16; i++) {
+  const col = [];
+  const len = 6 + Math.floor(Math.random() * 8);
+  for (let j = 0; j < len; j++) {
+    col.push(codeTokens[Math.floor(Math.random() * codeTokens.length)]);
+  }
+  columns.push({
+    tokens: col,
+    x: (i / 16) * 100,
+    speed: 4 + Math.random() * 6,
+    delay: Math.random() * 8,
+  });
+}
+
+const CodeRain = () => (
+  <div className="absolute inset-0 pointer-events-none z-[5] overflow-hidden opacity-[0.06]">
+    {columns.map((col, ci) => (
+      <motion.div
+        key={ci}
+        className="absolute top-0 flex flex-col items-center"
+        style={{ left: `${col.x}%` }}
+        initial={{ y: "-20%" }}
+        animate={{ y: "120%" }}
+        transition={{
+          duration: col.speed,
+          repeat: Infinity,
+          ease: "linear",
+          delay: col.delay,
+        }}
       >
-        {block.lines.map((line, li) => (
-          <motion.div
-            key={li}
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              delay: 2 + block.delay + li * 0.15,
-              duration: 0.4,
-              ease: "easeOut",
+        {col.tokens.map((token, ti) => (
+          <span
+            key={ti}
+            className="font-mono text-[10px] leading-[1.6] whitespace-nowrap text-[#2E3A2E]"
+            style={{
+              opacity: 1 - ti / col.tokens.length * 0.4,
             }}
-            className="text-[#2E3A2E]/10 font-mono text-[11px] leading-[1.8] whitespace-nowrap"
           >
-            {line}
-          </motion.div>
+            {ti % 2 === 0 ? (
+              token
+            ) : (
+              <span className="opacity-70">{token}</span>
+            )}
+          </span>
         ))}
-      </div>
+      </motion.div>
     ))}
   </div>
 );
@@ -141,6 +132,15 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#F5F5F5] to-white">
       <div
+        className="absolute inset-0 pointer-events-none z-[3]"
+        style={{
+          backgroundImage:
+            "linear-gradient(#2E3A2E 1px, transparent 1px), linear-gradient(90deg, #2E3A2E 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          opacity: 0.04,
+        }}
+      />
+      <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: "radial-gradient(#2E3A2E 1px, transparent 1px)",
@@ -148,7 +148,33 @@ const Hero = () => {
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-[#F5F5F5]/60 via-transparent to-white pointer-events-none z-10" />
-      <CodeLines />
+      <CodeRain />
+
+      {/* Side fillup bars */}
+      <div className="absolute inset-y-0 left-8 z-[15] flex flex-col justify-center space-y-[3px]">
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ scaleY: 0, opacity: 0 }}
+            animate={{ scaleY: 1, opacity: 1 }}
+            transition={{ delay: 1.2 + i * 0.15, duration: 0.5, ease: "easeOut" }}
+            className="w-[3px] bg-[#2E3A2E]/30 origin-bottom"
+            style={{ height: `${8 + (i % 4) * 6}px` }}
+          />
+        ))}
+      </div>
+      <div className="absolute inset-y-0 right-8 z-[15] flex flex-col justify-center space-y-[3px]">
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ scaleY: 0, opacity: 0 }}
+            animate={{ scaleY: 1, opacity: 1 }}
+            transition={{ delay: 1.8 + i * 0.12, duration: 0.5, ease: "easeOut" }}
+            className="w-[3px] bg-[#2E3A2E]/30 origin-bottom"
+            style={{ height: `${10 + (i % 5) * 5}px` }}
+          />
+        ))}
+      </div>
 
       <div className="relative z-20 container mx-auto px-6 text-center pt-20">
         <motion.div
