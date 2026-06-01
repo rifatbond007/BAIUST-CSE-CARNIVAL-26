@@ -243,16 +243,24 @@ const Hero = () => {
 
 const StatsSection = () => {
   const stats = [
-    { value: "1500+", label: "Participants" },
-    { value: "৳3L+", label: "Prize Pool" },
-    { value: "02", label: "Thrilling Days" },
-    { value: "25+", label: "Universities" },
+    { value: "1500+", label: "Participants", icon: <Users size={18} /> },
+    { value: "৳3L+", label: "Prize Pool", icon: <Trophy size={18} /> },
+    { value: "02", label: "Days of Glory", icon: <Calendar size={18} /> },
+    { value: "25+", label: "Universities", icon: <MapPin size={18} /> },
   ];
 
   return (
-    <section className="relative bg-white border-y border-gray-100 py-14 overflow-hidden">
+    <section className="relative bg-[#2E3A2E] py-12 overflow-hidden">
+      <div className="absolute inset-0 bg-[#1B261B] opacity-50" />
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: "radial-gradient(#fff 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
           {stats.map((s, i) => (
             <motion.div
               key={i}
@@ -260,12 +268,15 @@ const StatsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="flex flex-col items-center text-center py-4"
             >
-              <div className="text-3xl md:text-4xl font-black text-[#2E3A2E] mb-1">
+              <span className="text-white/40 mb-2">{s.icon}</span>
+              <div className="text-3xl md:text-4xl font-black text-white mb-1">
                 {s.value}
               </div>
-              <div className="text-[#2E3A2E]/50 font-semibold text-xs uppercase tracking-wider">{s.label}</div>
+              <div className="text-white/50 font-semibold text-xs uppercase tracking-wider">
+                {s.label}
+              </div>
             </motion.div>
           ))}
         </div>
