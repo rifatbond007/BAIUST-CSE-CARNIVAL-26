@@ -144,7 +144,7 @@ function TimelineCard({ fest, index }) {
       <div className="hidden lg:flex items-start">
         <div className={`w-[calc(50%-28px)] ${isLeft ? "" : "ml-auto"}`}>
           <motion.div
-            initial={{ opacity: 0, x: isLeft ? -24 : 24 }}
+            initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
@@ -189,7 +189,7 @@ function TimelineCard({ fest, index }) {
       {/* Mobile stack */}
       <div className="lg:hidden">
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#2E3A2E] text-white text-xs font-black flex items-center justify-center shadow-md shrink-0">
+          <div className={`w-8 h-8 rounded-full ${isLeft ? "bg-[#2E3A2E]" : "bg-[#2E3A2E]/80"} text-white text-xs font-black flex items-center justify-center shadow-md shrink-0 order-first`}>
             {fest.year.slice(2)}
           </div>
           <div className="h-px flex-1 bg-gray-200" />
@@ -198,8 +198,8 @@ function TimelineCard({ fest, index }) {
           )}
         </div>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.4 }}
         >
