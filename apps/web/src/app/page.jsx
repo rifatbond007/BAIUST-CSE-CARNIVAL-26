@@ -338,7 +338,7 @@ const EventNode = ({ event, index }) => {
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.15, ease: "easeOut" }}
-        className={`absolute top-1/2 h-px bg-[#2E3A2E]/12 ${
+        className={`absolute top-1/2 h-0.5 bg-[#2E3A2E]/40 ${
           isLeft ? "right-1/2 left-[15%]" : "left-1/2 right-[15%]"
         }`}
         style={{ transformOrigin: isLeft ? "right center" : "left center" }}
@@ -351,8 +351,8 @@ const EventNode = ({ event, index }) => {
         transition={{ delay: 0.25, type: "spring", stiffness: 200 }}
         className="absolute left-1/2 -translate-x-1/2 z-10"
       >
-        <div className="w-4 h-4 rounded-full bg-white border-2 border-[#2E3A2E]/30 shadow-sm flex items-center justify-center">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#2E3A2E]" />
+        <div className="w-5 h-5 rounded-full bg-white border-[3px] border-[#2E3A2E]/60 shadow-md flex items-center justify-center">
+          <div className="w-2 h-2 rounded-full bg-[#2E3A2E]" />
         </div>
       </motion.div>
 
@@ -365,23 +365,23 @@ const EventNode = ({ event, index }) => {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <span className="text-[#2E3A2E]/20 text-[10px] font-black tracking-wider">
+              <span className="text-[#2E3A2E]/30 text-[10px] font-black tracking-wider">
                 {event.num}
               </span>
               <h3 className="text-2xl md:text-4xl font-black text-[#2E3A2E] leading-tight mt-0.5">
                 {event.title}
               </h3>
               <div className="flex items-center justify-end gap-1.5 mt-1">
-                <span className="text-[#2E3A2E]/30">{event.icon}</span>
-                <span className="text-[#2E3A2E]/35 text-xs font-semibold uppercase tracking-wider">
+                <span className="text-[#2E3A2E]/40">{event.icon}</span>
+                <span className="text-[#2E3A2E]/40 text-xs font-semibold uppercase tracking-wider">
                   {event.tag}
                 </span>
               </div>
-              <p className="text-[#2E3A2E]/40 text-sm leading-relaxed mt-2 max-w-sm ml-auto">
+              <p className="text-[#2E3A2E]/45 text-sm leading-relaxed mt-2 max-w-sm ml-auto">
                 {event.desc}
               </p>
               <div className="flex items-center justify-end gap-2 mt-3">
-                <span className="text-[#2E3A2E] text-sm font-black bg-[#2E3A2E]/8 px-3 py-1 rounded-lg">
+                <span className="text-[#2E3A2E] text-sm font-black bg-[#2E3A2E]/10 px-3 py-1 rounded-lg">
                   {event.prize}
                 </span>
                 <a
@@ -393,13 +393,13 @@ const EventNode = ({ event, index }) => {
               </div>
             </motion.div>
           </div>
-          <div className="w-8" />
+          <div className="w-10" />
           <div className="w-1/2" />
         </>
       ) : (
         <>
           <div className="w-1/2" />
-          <div className="w-8" />
+          <div className="w-10" />
           <div className="w-1/2 pl-14 md:pl-20">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -407,23 +407,23 @@ const EventNode = ({ event, index }) => {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <span className="text-[#2E3A2E]/20 text-[10px] font-black tracking-wider">
+              <span className="text-[#2E3A2E]/30 text-[10px] font-black tracking-wider">
                 {event.num}
               </span>
               <h3 className="text-2xl md:text-4xl font-black text-[#2E3A2E] leading-tight mt-0.5">
                 {event.title}
               </h3>
               <div className="flex items-center gap-1.5 mt-1">
-                <span className="text-[#2E3A2E]/30">{event.icon}</span>
-                <span className="text-[#2E3A2E]/35 text-xs font-semibold uppercase tracking-wider">
+                <span className="text-[#2E3A2E]/40">{event.icon}</span>
+                <span className="text-[#2E3A2E]/40 text-xs font-semibold uppercase tracking-wider">
                   {event.tag}
                 </span>
               </div>
-              <p className="text-[#2E3A2E]/40 text-sm leading-relaxed mt-2 max-w-sm">
+              <p className="text-[#2E3A2E]/45 text-sm leading-relaxed mt-2 max-w-sm">
                 {event.desc}
               </p>
               <div className="flex items-center gap-2 mt-3">
-                <span className="text-[#2E3A2E] text-sm font-black bg-[#2E3A2E]/8 px-3 py-1 rounded-lg">
+                <span className="text-[#2E3A2E] text-sm font-black bg-[#2E3A2E]/10 px-3 py-1 rounded-lg">
                   {event.prize}
                 </span>
                 <a
@@ -557,7 +557,14 @@ const Segments = () => (
       </div>
 
       <div className="relative max-w-5xl mx-auto mt-2">
-        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[#2E3A2E]/8" />
+        <motion.div
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-[#2E3A2E]/40"
+          style={{ transformOrigin: "top center" }}
+        />
         {events.map((event, i) => (
           <EventNode key={event.num} event={event} index={i} />
         ))}
