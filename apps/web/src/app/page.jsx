@@ -765,6 +765,89 @@ const AboutFest = () => (
   </section>
 );
 
+const speakers = [
+  {
+    name: "Prof. Dr. A. H. M. Saiful Islam",
+    role: "Keynote Speaker",
+    title: "Dean, Faculty of EECS, BAIUST",
+  },
+  {
+    name: "Tahmid Rafi",
+    role: "IUPC Head Judge",
+    title: "Senior Software Engineer, Google Dhaka",
+  },
+  {
+    name: "Nusrat Jahan",
+    role: "Hackathon Mentor",
+    title: "CTO, AuthLab Technologies",
+  },
+  {
+    name: "Md. Shahriar Hossain",
+    role: "Code Battle Jury",
+    title: "ACM ICPC Regional Coach, BUET",
+  },
+  {
+    name: "Farzana Islam",
+    role: "Gaming Fest Curator",
+    title: "Esports Lead, Bangladesh Gaming Community",
+  },
+  {
+    name: "Sakib Al Hasan (Guest)",
+    role: "Closing Ceremony Speaker",
+    title: "Founder, CodeShepherd.dev",
+  },
+];
+
+const Speakers = () => (
+  <section className="py-24 bg-white" id="speakers">
+    <div className="container mx-auto px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center mb-14"
+      >
+        <span className="text-[#2E3A2E]/30 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+          — Speakers & Judges
+        </span>
+        <h2 className="text-4xl md:text-5xl font-black text-[#2E3A2E] leading-none">
+          Meet the
+          <br />
+          <span className="text-[#2E3A2E]/30">Mentors & Masters</span>
+        </h2>
+      </motion.div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+        {speakers.map((s, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.06 }}
+            className="bg-[#F5F5F5] border border-gray-100 rounded-xl p-6 flex items-start gap-4 hover:border-[#2E3A2E]/15 transition-all"
+          >
+            <div className="w-11 h-11 rounded-full bg-[#2E3A2E] flex items-center justify-center text-white font-black text-sm shrink-0">
+              {s.name.charAt(0)}
+            </div>
+            <div className="min-w-0">
+              <div className="text-[#2E3A2E]/40 text-[10px] font-bold uppercase tracking-widest mb-1">
+                {s.role}
+              </div>
+              <div className="text-[#2E3A2E] font-black text-sm leading-tight">
+                {s.name}
+              </div>
+              <div className="text-[#2E3A2E]/50 text-xs mt-0.5">
+                {s.title}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 const Timeline = () => {
   const days = [
     {
@@ -1105,6 +1188,7 @@ export default function CarnivalLandingPage() {
       <StatsSection />
       <Segments />
       <AboutFest />
+      <Speakers />
       <Timeline />
       <FAQ />
       <CTABanner />
