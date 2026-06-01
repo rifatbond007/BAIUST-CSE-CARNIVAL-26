@@ -395,25 +395,109 @@ const EventCard = ({ event, index }) => (
   </motion.div>
 );
 
+const TreeAnimation = () => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    className="w-16 h-24 md:w-20 md:h-28 shrink-0"
+  >
+    <svg viewBox="0 0 80 100" fill="none" className="w-full h-full">
+      <motion.path
+        d="M40 95 L40 55"
+        stroke="#2E3A2E"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      />
+      <motion.path
+        d="M40 68 Q22 56 16 48"
+        stroke="#2E3A2E"
+        strokeWidth="2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+      />
+      <motion.path
+        d="M40 63 Q58 52 64 44"
+        stroke="#2E3A2E"
+        strokeWidth="2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+      />
+      <motion.path
+        d="M40 58 Q18 44 12 34"
+        stroke="#2E3A2E"
+        strokeWidth="2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
+      />
+      <motion.path
+        d="M40 53 Q62 40 68 30"
+        stroke="#2E3A2E"
+        strokeWidth="2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+      />
+      {[
+        [16, 48], [10, 46], [20, 43],
+        [64, 44], [70, 41], [58, 39],
+        [12, 34], [6, 31], [16, 29],
+        [68, 30], [74, 27], [64, 25],
+        [40, 45], [40, 35],
+      ].map(([cx, cy], i) => (
+        <motion.circle
+          key={i}
+          cx={cx}
+          cy={cy}
+          r="2.5"
+          fill="#2E3A2E"
+          initial={{ opacity: 0, scale: 0 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.8 + i * 0.06, duration: 0.25 }}
+        />
+      ))}
+    </svg>
+  </motion.div>
+);
+
 const Segments = () => (
   <section className="py-24 bg-white" id="segments">
     <div className="container mx-auto px-6">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
-        <div>
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-[#2E3A2E]/30 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
-              — Core Events
-            </span>
-            <h2 className="text-4xl md:text-6xl font-black text-[#2E3A2E] leading-none">
-              Four <span className="text-[#2E3A2E]/20">Pillars</span>
-              <br />
-              <span className="text-[#2E3A2E]">of Glory</span>
-            </h2>
-          </motion.div>
+        <div className="flex items-start gap-4 md:gap-6">
+          <TreeAnimation />
+          <div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-[#2E3A2E]/30 text-xs font-bold uppercase tracking-[0.3em] mb-3 block">
+                — Core Events
+              </span>
+              <h2 className="text-4xl md:text-6xl font-black text-[#2E3A2E] leading-none">
+                Four <span className="text-[#2E3A2E]/20">Pillars</span>
+                <br />
+                <span className="text-[#2E3A2E]">of Glory</span>
+              </h2>
+            </motion.div>
+          </div>
         </div>
         <motion.p
           initial={{ opacity: 0 }}
