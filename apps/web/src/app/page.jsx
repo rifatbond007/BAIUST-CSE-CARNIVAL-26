@@ -34,132 +34,80 @@ const CountdownBox = ({ value, label }) => (
   </div>
 );
 
-const logos = [
+const codeBlocks = [
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <path d="M12 2C8 2 7 4 7 6v3h5v1H7H5c-2 0-4 2-4 5s2 5 4 5h2v-3c0-2 2-4 4-4h5c2 0 3-1 3-3V6c0-2-1-4-5-4zM8 5c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1z" fill="currentColor"/>
-        <path d="M12 22c4 0 5-2 5-4v-3h-5v-1h5h2c2 0 4-2 4-5s-2-5-4-5h-2v3c0 2-2 4-4 4H8c-2 0-3 1-3 3v2c0 2 1 4 5 4z" fill="currentColor" opacity="0.5"/>
-      </svg>
-    ),
-    x: "5%", y: "12%", size: 36, delay: 0,
-    duration: 6, xDrift: 25, yDrift: 20,
+    lines: [
+      "$ npx create-carnival",
+      "> Initializing CSE Carnival 2026...",
+      "> ✓ Environment ready",
+      "> Starting dev server...",
+    ],
+    x: "4%", y: "10%", delay: 0,
   },
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z" fill="currentColor" opacity="0.3"/>
-        <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z" stroke="currentColor" strokeWidth="0.8"/>
-        <path d="M8.5 9.5l-2 2.5 2 2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M15.5 9.5l2 2.5-2 2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M13.5 8l-3 8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-      </svg>
-    ),
-    x: "88%", y: "18%", size: 34, delay: 0.4,
-    duration: 7, xDrift: -20, yDrift: 18,
+    lines: [
+      "import { Innovation } from 'cse';",
+      "const carnival = await deploy();",
+      "carnival.on('ready', () => {",
+      "  console.log('Let the games begin!');",
+      "});",
+    ],
+    x: "68%", y: "14%", delay: 1.5,
   },
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <rect x="2" y="3" width="20" height="18" rx="2" fill="currentColor" opacity="0.15"/>
-        <rect x="2" y="3" width="20" height="18" rx="2" stroke="currentColor" strokeWidth="0.8"/>
-        <path d="M5 12l3-3 3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M11 15h8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-        <path d="M7 15h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-      </svg>
-    ),
-    x: "10%", y: "78%", size: 30, delay: 0.8,
-    duration: 8, xDrift: 18, yDrift: -22,
+    lines: [
+      "> git push origin main",
+      "> Compiling 42 events...",
+      "> Merging creativity & code",
+      "> ✓ Deployed to production",
+    ],
+    x: "8%", y: "68%", delay: 0.8,
   },
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <circle cx="12" cy="12" r="3" fill="currentColor"/>
-        <path d="M12 5c-2 0-4 1-5 3s-1 4 0 6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-        <path d="M12 19c2 0 4-1 5-3s1-4 0-6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-        <path d="M5 12c2 1 4 1 6 1s4 0 6-1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-        <path d="M5 12c2-1 4-1 6-1s4 0 6 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-      </svg>
-    ),
-    x: "80%", y: "72%", size: 32, delay: 1,
-    duration: 5.5, xDrift: -18, yDrift: 20,
+    lines: [
+      "while (campus.alive) {",
+      "  minds.ignite();",
+      "  dreams.compile();",
+      "  future.build();",
+      "}",
+    ],
+    x: "72%", y: "72%", delay: 2.2,
   },
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" strokeWidth="1.2"/>
-        <path d="M12 8c-5 0-9 2-9 4s4 4 9 4 9-2 9-4-4-4-9-4z" stroke="currentColor" strokeWidth="1.2"/>
-        <path d="M12 8V2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-        <path d="M12 22v-6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-        <path d="M6 5l6 3 6-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-    x: "92%", y: "55%", size: 28, delay: 0.6,
-    duration: 6.5, xDrift: -22, yDrift: 12,
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="1.2"/>
-        <path d="M9 8h6M9 12h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-        <circle cx="16" cy="16" r="2" fill="currentColor" opacity="0.4"/>
-      </svg>
-    ),
-    x: "68%", y: "8%", size: 26, delay: 0.3,
-    duration: 5.5, xDrift: -12, yDrift: 28,
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <circle cx="12" cy="12" r="2" fill="currentColor" opacity="0.6"/>
-        <path d="M12 6c-3.3 0-6 2.7-6 6s2.7 6 6 6" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-        <path d="M12 18c3.3 0 6-2.7 6-6s-2.7-6-6-6" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-        <path d="M6 12H1" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-        <path d="M18 12h5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-      </svg>
-    ),
-    x: "22%", y: "88%", size: 24, delay: 1.5,
-    duration: 7, xDrift: 14, yDrift: -12,
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-        <path d="M4 6c0-1.1.9-2 2-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" stroke="currentColor" strokeWidth="1" fill="none"/>
-        <path d="M9 16V8l6 4-6 4z" fill="currentColor" opacity="0.4"/>
-      </svg>
-    ),
-    x: "45%", y: "5%", size: 22, delay: 1.2,
-    duration: 6, xDrift: 10, yDrift: 30,
+    lines: [
+      "$ ./run --mode=carnival",
+      "> Loading modules...",
+      "> 1500+ participants ready",
+      "> System: OPTIMAL",
+    ],
+    x: "50%", y: "90%", delay: 1.2,
   },
 ];
 
-const FloatingLogos = () => (
+const CodeLines = () => (
   <div className="absolute inset-0 pointer-events-none z-[5] overflow-hidden">
-    {logos.map((logo, i) => (
-      <motion.div
-        key={i}
-        className="absolute text-[#2E3A2E]/8"
-        style={{ left: logo.x, top: logo.y, width: logo.size, height: logo.size }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 + logo.delay }}
+    {codeBlocks.map((block, bi) => (
+      <div
+        key={bi}
+        className="absolute"
+        style={{ left: block.x, top: block.y }}
       >
-        <motion.div
-          animate={{
-            x: [0, logo.xDrift, 0, -logo.xDrift, 0],
-            y: [0, logo.yDrift, 0, -logo.yDrift, 0],
-            rotate: [0, 5, 0, -5, 0],
-          }}
-          transition={{
-            duration: logo.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: logo.delay,
-          }}
-        >
-          {logo.icon}
-        </motion.div>
-      </motion.div>
+        {block.lines.map((line, li) => (
+          <motion.div
+            key={li}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              delay: 2 + block.delay + li * 0.15,
+              duration: 0.4,
+              ease: "easeOut",
+            }}
+            className="text-[#2E3A2E]/10 font-mono text-[11px] leading-[1.8] whitespace-nowrap"
+          >
+            {line}
+          </motion.div>
+        ))}
+      </div>
     ))}
   </div>
 );
@@ -200,7 +148,7 @@ const Hero = () => {
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-[#F5F5F5]/60 via-transparent to-white pointer-events-none z-10" />
-      <FloatingLogos />
+      <CodeLines />
 
       <div className="relative z-20 container mx-auto px-6 text-center pt-20">
         <motion.div
