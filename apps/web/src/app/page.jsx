@@ -34,6 +34,126 @@ const CountdownBox = ({ value, label }) => (
   </div>
 );
 
+const logos = [
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+        <path d="M12 2L2 7v10l10 5 10-5V7L12 2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+        <path d="M2 7l10 5 10-5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M12 22V12" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+    ),
+    x: "5%", y: "15%", size: 28, delay: 0,
+    duration: 6, xDrift: 30, yDrift: 20,
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+        <rect x="2" y="3" width="20" height="18" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M8 8h8M8 12h6M8 16h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    x: "88%", y: "22%", size: 32, delay: 0.5,
+    duration: 7, xDrift: -25, yDrift: 15,
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+        <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    x: "12%", y: "75%", size: 24, delay: 1,
+    duration: 8, xDrift: 20, yDrift: -25,
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+        <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="9" cy="10" r="1" fill="currentColor"/>
+        <circle cx="15" cy="10" r="1" fill="currentColor"/>
+      </svg>
+    ),
+    x: "80%", y: "70%", size: 26, delay: 1.5,
+    duration: 5.5, xDrift: -15, yDrift: 20,
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+        <path d="M6 4h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+        <path d="M9 8l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M15 8l-3 3 3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    x: "92%", y: "50%", size: 22, delay: 0.8,
+    duration: 6.5, xDrift: -20, yDrift: 10,
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+        <path d="M4 6h16M4 12h16M4 18h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M20 14l-2 2-2-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    x: "45%", y: "88%", size: 30, delay: 2,
+    duration: 7, xDrift: 10, yDrift: -15,
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+        <path d="M7 8h10M7 12h6M7 16h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+    ),
+    x: "70%", y: "12%", size: 20, delay: 0.3,
+    duration: 5, xDrift: -10, yDrift: 30,
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+    ),
+    x: "25%", y: "5%", size: 18, delay: 1.2,
+    duration: 6, xDrift: 15, yDrift: 25,
+  },
+];
+
+const FloatingLogos = () => (
+  <div className="absolute inset-0 pointer-events-none z-[5] overflow-hidden">
+    {logos.map((logo, i) => (
+      <motion.div
+        key={i}
+        className="absolute text-[#2E3A2E]/8"
+        style={{ left: logo.x, top: logo.y, width: logo.size, height: logo.size }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 + logo.delay }}
+      >
+        <motion.div
+          animate={{
+            x: [0, logo.xDrift, 0, -logo.xDrift, 0],
+            y: [0, logo.yDrift, 0, -logo.yDrift, 0],
+            rotate: [0, 5, 0, -5, 0],
+          }}
+          transition={{
+            duration: logo.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: logo.delay,
+          }}
+        >
+          {logo.icon}
+        </motion.div>
+      </motion.div>
+    ))}
+  </div>
+);
+
 const Hero = () => {
   const [timeLeft, setTimeLeft] = useState({
     days: 40,
@@ -70,6 +190,7 @@ const Hero = () => {
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-[#F5F5F5]/60 via-transparent to-white pointer-events-none z-10" />
+      <FloatingLogos />
 
       <div className="relative z-20 container mx-auto px-6 text-center pt-20">
         <motion.div
