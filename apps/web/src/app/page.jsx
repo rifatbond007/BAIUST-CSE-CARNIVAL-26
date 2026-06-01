@@ -211,14 +211,14 @@ const Hero = () => {
         transition={{ delay: 0.9 }}
         className="w-full mt-16 border-t border-gray-100 pt-6"
       >
-        <p className="text-[#2E3A2E]/25 text-[9px] uppercase tracking-[0.35em] font-bold mb-5 text-center">
+        <p className="text-[#2E3A2E]/40 text-[10px] uppercase tracking-[0.35em] font-bold mb-4 text-center">
           Powered By
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-3">
+        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-3">
           {["bKash", "Nagad", "AuthLab", "Poridhi"].map((s) => (
             <span
               key={s}
-              className="text-[#2E3A2E]/20 hover:text-[#2E3A2E]/50 text-base md:text-lg font-black tracking-tight transition-colors cursor-default"
+              className="text-[#2E3A2E]/70 hover:text-[#2E3A2E] text-base md:text-lg font-black tracking-tight transition-colors cursor-default"
             >
               {s}
             </span>
