@@ -380,15 +380,12 @@ const EventNode = ({ event, index }) => {
               <p className="text-[#2E3A2E]/45 text-sm leading-relaxed mt-2 max-w-sm ml-auto">
                 {event.desc}
               </p>
-              <div className="flex items-center justify-end gap-2 mt-3">
-                <span className="text-[#2E3A2E] text-sm font-black bg-[#2E3A2E]/10 px-3 py-1 rounded-lg">
-                  {event.prize}
-                </span>
+              <div className="flex mt-3">
                 <a
-                  href={`/register?event=${event.title}`}
+                  href={event.href}
                   className="bg-[#2E3A2E] hover:bg-[#1B261B] text-white text-[10px] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-lg transition-all"
                 >
-                  Register →
+                  Explore Event →
                 </a>
               </div>
             </motion.div>
@@ -422,15 +419,12 @@ const EventNode = ({ event, index }) => {
               <p className="text-[#2E3A2E]/45 text-sm leading-relaxed mt-2 max-w-sm">
                 {event.desc}
               </p>
-              <div className="flex items-center gap-2 mt-3">
-                <span className="text-[#2E3A2E] text-sm font-black bg-[#2E3A2E]/10 px-3 py-1 rounded-lg">
-                  {event.prize}
-                </span>
+              <div className="flex mt-3">
                 <a
-                  href={`/register?event=${event.title}`}
+                  href={event.href}
                   className="bg-[#2E3A2E] hover:bg-[#1B261B] text-white text-[10px] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-lg transition-all"
                 >
-                  Register →
+                  Explore Event →
                 </a>
               </div>
             </motion.div>
