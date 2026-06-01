@@ -15,7 +15,7 @@ import {
   Cpu,
   CheckCircle,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import CarnivalNavbar from "@/components/CarnivalNavbar";
 
 const CountdownBox = ({ value, label }) => (
@@ -876,6 +876,105 @@ const Timeline = () => {
   );
 };
 
+const faqs = [
+  {
+    q: "When and where is the carnival?",
+    a: "July 11–12, 2026 at BAIUST Campus, Cumilla. The event runs from 9:00 AM each day.",
+  },
+  {
+    q: "Who can participate?",
+    a: "Any university student from any institution across Bangladesh. Some events have team-based participation — check individual event pages for details.",
+  },
+  {
+    q: "Is there a registration fee?",
+    a: "No, registration is completely free. Just register online and show up on the day with your student ID.",
+  },
+  {
+    q: "Can I participate in multiple events?",
+    a: "Yes, as long as the schedules don't overlap. We recommend picking 2–3 events to get the full experience.",
+  },
+  {
+    q: "Will accommodation be provided?",
+    a: "Limited accommodation is available for out-of-town participants. Please reach out to us at csecarnival@baiust.edu.bd to reserve.",
+  },
+  {
+    q: "Will I receive a certificate?",
+    a: "Yes, all participants will receive e-certificates. Winners and runners-up will receive additional prizes and trophies.",
+  },
+];
+
+const FAQ = () => {
+  const [open, setOpen] = useState(null);
+
+  return (
+    <section className="py-24 bg-[#F5F5F5]" id="faq">
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <span className="text-[#2E3A2E]/30 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+            — FAQ
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black text-[#2E3A2E] leading-none">
+            Got Questions?
+            <br />
+            <span className="text-[#2E3A2E]/30">We&apos;ve Got Answers</span>
+          </h2>
+        </motion.div>
+
+        <div className="max-w-2xl mx-auto space-y-3">
+          {faqs.map((faq, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm"
+            >
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-center justify-between px-5 py-4 text-left"
+              >
+                <span className="text-[#2E3A2E] text-sm font-bold pr-4">
+                  {faq.q}
+                </span>
+                <motion.span
+                  animate={{ rotate: open === i ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-[#2E3A2E]/30 shrink-0"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </motion.span>
+              </button>
+              <AnimatePresence>
+                {open === i && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <p className="px-5 pb-4 text-[#2E3A2E]/60 text-sm leading-relaxed">
+                      {faq.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const CTABanner = () => (
   <section className="py-16 bg-white border-t border-gray-50">
     <div className="container mx-auto px-6">
@@ -1005,6 +1104,7 @@ export default function CarnivalLandingPage() {
       <Segments />
       <AboutFest />
       <Timeline />
+      <FAQ />
       <CTABanner />
       <Footer />
 
