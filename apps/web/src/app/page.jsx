@@ -489,7 +489,7 @@ const EventNode = ({ event, index }) => {
 
       {isLeft ? (
         <>
-          <div className="w-1/2 pr-14 md:pr-20 text-right">
+          <div className="w-1/2 pr-8 md:pr-20 text-right">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -499,7 +499,7 @@ const EventNode = ({ event, index }) => {
               <span className="text-[#2E3A2E]/30 text-[10px] font-black tracking-wider">
                 {event.num}
               </span>
-              <h3 className="text-2xl md:text-4xl font-black text-[#2E3A2E] leading-tight mt-0.5">
+              <h3 className="text-xl md:text-4xl font-black text-[#2E3A2E] leading-tight mt-0.5">
                 {event.title}
               </h3>
               <div className="flex items-center justify-end gap-1.5 mt-1">
@@ -508,27 +508,28 @@ const EventNode = ({ event, index }) => {
                   {event.tag}
                 </span>
               </div>
-              <p className="text-[#2E3A2E]/45 text-sm leading-relaxed mt-2 max-w-sm ml-auto">
+              <p className="text-[#2E3A2E]/45 text-sm leading-relaxed mt-2 max-w-sm ml-auto hidden sm:block">
                 {event.desc}
               </p>
-              <div className="flex mt-3">
+              <div className="flex mt-3 justify-end">
                 <a
                   href={event.href}
-                  className="bg-[#2E3A2E] hover:bg-[#1B261B] text-white text-[10px] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-lg transition-all"
+                  className="inline-flex items-center gap-1.5 bg-[#2E3A2E] hover:bg-[#1B261B] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg transition-all"
                 >
-                  Explore Event →
+                  <span>Explore</span>
+                  <ArrowRight size={12} />
                 </a>
               </div>
             </motion.div>
           </div>
-          <div className="w-10" />
+          <div className="w-6 md:w-10" />
           <div className="w-1/2" />
         </>
       ) : (
         <>
           <div className="w-1/2" />
-          <div className="w-10" />
-          <div className="w-1/2 pl-14 md:pl-20">
+          <div className="w-6 md:w-10" />
+          <div className="w-1/2 pl-8 md:pl-20">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -538,7 +539,7 @@ const EventNode = ({ event, index }) => {
               <span className="text-[#2E3A2E]/30 text-[10px] font-black tracking-wider">
                 {event.num}
               </span>
-              <h3 className="text-2xl md:text-4xl font-black text-[#2E3A2E] leading-tight mt-0.5">
+              <h3 className="text-xl md:text-4xl font-black text-[#2E3A2E] leading-tight mt-0.5">
                 {event.title}
               </h3>
               <div className="flex items-center gap-1.5 mt-1">
@@ -547,15 +548,16 @@ const EventNode = ({ event, index }) => {
                   {event.tag}
                 </span>
               </div>
-              <p className="text-[#2E3A2E]/45 text-sm leading-relaxed mt-2 max-w-sm">
+              <p className="text-[#2E3A2E]/45 text-sm leading-relaxed mt-2 max-w-sm hidden sm:block">
                 {event.desc}
               </p>
               <div className="flex mt-3">
                 <a
                   href={event.href}
-                  className="bg-[#2E3A2E] hover:bg-[#1B261B] text-white text-[10px] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-lg transition-all"
+                  className="inline-flex items-center gap-1.5 bg-[#2E3A2E] hover:bg-[#1B261B] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg transition-all"
                 >
-                  Explore Event →
+                  <span>Explore</span>
+                  <ArrowRight size={12} />
                 </a>
               </div>
             </motion.div>
@@ -699,7 +701,7 @@ const Segments = () => (
 );
 
 const AboutFest = () => (
-  <section className="py-24 bg-[#F5F5F5]">
+  <section className="py-24 bg-[#F5F5F5]" id="about">
     <div className="container mx-auto px-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -736,8 +738,8 @@ const AboutFest = () => (
             desc: "Of non-stop innovation and excitement",
           },
           {
-            num: "৳2.7L+",
-            label: "Prize Pool",
+            num: "12+",
+            label: "Events",
             desc: "Across all competitive segments",
           },
         ].map((item, i) => (
@@ -976,7 +978,7 @@ const FAQ = () => {
 };
 
 const CTABanner = () => (
-  <section className="py-16 bg-white border-t border-gray-50">
+  <section className="py-16 bg-[#F5F5F5]">
     <div className="container mx-auto px-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
