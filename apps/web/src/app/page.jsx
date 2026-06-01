@@ -328,55 +328,118 @@ const events = [
   },
 ];
 
-const HierarchyRow = ({ event, index }) => (
-  <div className="relative">
-    {index < 3 && (
-      <div className="absolute left-[22px] top-[60px] bottom-0 w-px bg-[#2E3A2E]/10" />
-    )}
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.15 }}
-      viewport={{ once: true }}
-      className="relative flex items-start gap-5 md:gap-8 py-6 md:py-8"
-    >
-      <div className="flex flex-col items-center shrink-0">
-        <div className="relative w-11 h-11 rounded-full bg-[#2E3A2E] flex items-center justify-center text-white font-black text-sm leading-none shadow-sm">
-          {event.num}
+const EventNode = ({ event, index }) => {
+  const isLeft = index % 2 === 0;
+
+  return (
+    <div className="relative flex items-center py-5 md:py-6">
+      <motion.div
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.15, ease: "easeOut" }}
+        className={`absolute top-1/2 h-px bg-[#2E3A2E]/12 ${
+          isLeft ? "right-1/2 left-[15%]" : "left-1/2 right-[15%]"
+        }`}
+        style={{ transformOrigin: isLeft ? "right center" : "left center" }}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.25, type: "spring", stiffness: 200 }}
+        className="absolute left-1/2 -translate-x-1/2 z-10"
+      >
+        <div className="w-4 h-4 rounded-full bg-white border-2 border-[#2E3A2E]/30 shadow-sm flex items-center justify-center">
+          <div className="w-1.5 h-1.5 rounded-full bg-[#2E3A2E]" />
         </div>
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-[#2E3A2E]/30">{event.icon}</span>
-              <span className="text-[#2E3A2E]/35 text-xs font-semibold uppercase tracking-wider">
-                {event.tag}
-              </span>
-            </div>
-            <h3 className="text-3xl md:text-5xl font-black text-[#2E3A2E] leading-none">
-              {event.title}
-            </h3>
-            <p className="text-[#2E3A2E]/45 text-sm leading-relaxed max-w-lg mt-1.5">
-              {event.desc}
-            </p>
-          </div>
-          <div className="flex flex-row sm:flex-col items-center sm:items-end gap-2 shrink-0">
-            <div className="bg-[#2E3A2E]/10 px-3 py-1 rounded-lg">
-              <span className="text-[#2E3A2E] text-sm font-black">{event.prize}</span>
-            </div>
-            <a
-              href={`/register?event=${event.title}`}
-              className="bg-[#2E3A2E] hover:bg-[#1B261B] text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-lg transition-all whitespace-nowrap"
+      </motion.div>
+
+      {isLeft ? (
+        <>
+          <div className="w-1/2 pr-14 md:pr-20 text-right">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
             >
-              Register →
-            </a>
+              <span className="text-[#2E3A2E]/20 text-[10px] font-black tracking-wider">
+                {event.num}
+              </span>
+              <h3 className="text-2xl md:text-4xl font-black text-[#2E3A2E] leading-tight mt-0.5">
+                {event.title}
+              </h3>
+              <div className="flex items-center justify-end gap-1.5 mt-1">
+                <span className="text-[#2E3A2E]/30">{event.icon}</span>
+                <span className="text-[#2E3A2E]/35 text-xs font-semibold uppercase tracking-wider">
+                  {event.tag}
+                </span>
+              </div>
+              <p className="text-[#2E3A2E]/40 text-sm leading-relaxed mt-2 max-w-sm ml-auto">
+                {event.desc}
+              </p>
+              <div className="flex items-center justify-end gap-2 mt-3">
+                <span className="text-[#2E3A2E] text-sm font-black bg-[#2E3A2E]/8 px-3 py-1 rounded-lg">
+                  {event.prize}
+                </span>
+                <a
+                  href={`/register?event=${event.title}`}
+                  className="bg-[#2E3A2E] hover:bg-[#1B261B] text-white text-[10px] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-lg transition-all"
+                >
+                  Register →
+                </a>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      </div>
-    </motion.div>
-  </div>
-);
+          <div className="w-8" />
+          <div className="w-1/2" />
+        </>
+      ) : (
+        <>
+          <div className="w-1/2" />
+          <div className="w-8" />
+          <div className="w-1/2 pl-14 md:pl-20">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <span className="text-[#2E3A2E]/20 text-[10px] font-black tracking-wider">
+                {event.num}
+              </span>
+              <h3 className="text-2xl md:text-4xl font-black text-[#2E3A2E] leading-tight mt-0.5">
+                {event.title}
+              </h3>
+              <div className="flex items-center gap-1.5 mt-1">
+                <span className="text-[#2E3A2E]/30">{event.icon}</span>
+                <span className="text-[#2E3A2E]/35 text-xs font-semibold uppercase tracking-wider">
+                  {event.tag}
+                </span>
+              </div>
+              <p className="text-[#2E3A2E]/40 text-sm leading-relaxed mt-2 max-w-sm">
+                {event.desc}
+              </p>
+              <div className="flex items-center gap-2 mt-3">
+                <span className="text-[#2E3A2E] text-sm font-black bg-[#2E3A2E]/8 px-3 py-1 rounded-lg">
+                  {event.prize}
+                </span>
+                <a
+                  href={`/register?event=${event.title}`}
+                  className="bg-[#2E3A2E] hover:bg-[#1B261B] text-white text-[10px] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-lg transition-all"
+                >
+                  Register →
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
 
 const TreeAnimation = () => (
   <motion.div
@@ -493,9 +556,10 @@ const Segments = () => (
         </motion.p>
       </div>
 
-      <div className="max-w-4xl mx-auto">
+      <div className="relative max-w-5xl mx-auto mt-2">
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[#2E3A2E]/8" />
         {events.map((event, i) => (
-          <HierarchyRow key={event.num} event={event} index={i} />
+          <EventNode key={event.num} event={event} index={i} />
         ))}
       </div>
 
