@@ -923,55 +923,74 @@ const Timeline = () => {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
           {days.map((day, di) => (
             <motion.div
               key={di}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: di * 0.15 }}
-              className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm"
             >
-              <div className="bg-[#2E3A2E] px-6 py-4 flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-white font-black text-sm">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-10 h-10 rounded-xl bg-[#2E3A2E] flex items-center justify-center text-white font-black text-xs shadow-sm">
                   {di === 0 ? "D1" : "D2"}
                 </div>
                 <div>
-                  <div className="text-white font-black text-sm">
+                  <div className="text-[#2E3A2E] font-black text-sm">
                     {day.day}
                   </div>
-                  <div className="text-white/50 text-xs flex items-center gap-2">
-                    <span>{day.date}</span>
-                    <span className="w-1 h-1 rounded-full bg-white/30" />
-                    <span>{day.tagline}</span>
-                  </div>
+                  <div className="text-[#2E3A2E]/40 text-xs">{day.date}</div>
                 </div>
+                <span className="ml-auto text-[#2E3A2E]/20 text-[10px] font-bold uppercase tracking-wider">
+                  {day.tagline}
+                </span>
               </div>
 
-              <div className="p-5">
+              <div className="relative pl-10">
+                <div className="absolute left-[19px] top-2 bottom-2 w-0.5 bg-[#2E3A2E]/15" />
                 {day.events.map((evt, ei) => {
                   const { Icon, color } = getEventMeta(evt.label);
                   return (
-                    <div
-                      key={ei}
-                      className="flex items-start gap-4 py-3 border-b border-gray-50 last:border-0"
-                    >
-                      <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center shrink-0`}>
-                        <Icon size={14} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-[#2E3A2E]/80 text-sm font-semibold leading-tight">
-                          {evt.label}
+                    <div key={ei} className="relative pb-6 last:pb-0">
+                      {ei < day.events.length - 1 && (
+                        <motion.div
+                          initial={{ scaleY: 0 }}
+                          whileInView={{ scaleY: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.1 }}
+                          className="absolute left-[-21px] top-[18px] bottom-0 w-0.5 bg-[#2E3A2E]/10"
+                          style={{ transformOrigin: "top center" }}
+                        />
+                      )}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.15, type: "spring", stiffness: 200 }}
+                        className="absolute left-[-25px] top-[7px] z-10"
+                      >
+                        <div className={`w-[10px] h-[10px] rounded-full border-2 border-[#2E3A2E]/40 bg-white shadow-sm`} />
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                        className="flex items-start gap-3"
+                      >
+                        <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center shrink-0 mt-0.5`}>
+                          <Icon size={14} />
                         </div>
-                        <span className="text-[#2E3A2E]/30 text-[11px] font-mono font-bold">
-                          {evt.time}
-                        </span>
-                      </div>
-                      <span className="text-[#2E3A2E]/20 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap mt-0.5">
-                        {ei === 0 && di === 0 ? "Opener" : ""}
-                        {ei === day.events.length - 1 && di === 1 ? "Grand Finale" : ""}
-                      </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-[#2E3A2E]/80 text-sm font-semibold leading-tight">
+                            {evt.label}
+                          </div>
+                          <span className="text-[#2E3A2E]/30 text-[11px] font-mono font-bold">
+                            {evt.time}
+                          </span>
+                        </div>
+                      </motion.div>
                     </div>
                   );
                 })}
