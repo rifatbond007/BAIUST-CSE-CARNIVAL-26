@@ -597,6 +597,160 @@ const Segments = () => (
   </section>
 );
 
+const AboutFest = () => (
+  <section className="py-24 bg-[#F5F5F5]">
+    <div className="container mx-auto px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center mb-14"
+      >
+        <span className="text-[#2E3A2E]/30 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+          — About the Fest
+        </span>
+        <h2 className="text-4xl md:text-6xl font-black text-[#2E3A2E] leading-none mb-5">
+          Where Innovation
+          <br />
+          <span className="text-[#2E3A2E]/30">Meets Competition</span>
+        </h2>
+        <p className="text-[#2E3A2E]/50 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+          BAIUST CSE Carnival 2026 brings together the brightest minds from
+          universities across Bangladesh for two days of coding, creativity, and
+          camaraderie. Organized by the Department of CSE, this is Cumilla's
+          premier tech extravaganza.
+        </p>
+      </motion.div>
+
+      <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+        {[
+          {
+            num: "500+",
+            label: "Competitors",
+            desc: "From 25+ universities nationwide",
+          },
+          {
+            num: "36+",
+            label: "Hours",
+            desc: "Of non-stop innovation and excitement",
+          },
+          {
+            num: "৳2.7L+",
+            label: "Prize Pool",
+            desc: "Across all competitive segments",
+          },
+        ].map((item, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className="bg-white border border-gray-100 rounded-xl p-6 text-center shadow-sm"
+          >
+            <div className="text-3xl font-black text-[#2E3A2E] mb-1">
+              {item.num}
+            </div>
+            <div className="text-[#2E3A2E]/50 text-xs font-semibold uppercase tracking-wider mb-2">
+              {item.label}
+            </div>
+            <p className="text-[#2E3A2E]/40 text-sm">{item.desc}</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const Timeline = () => {
+  const days = [
+    {
+      day: "Day 01",
+      date: "July 11, 2026",
+      events: [
+        { time: "09:00 AM", label: "Inauguration & Opening Ceremony" },
+        { time: "10:30 AM", label: "IUPC — Round 1" },
+        { time: "02:00 PM", label: "Code Battle — Qualifiers" },
+        { time: "03:30 PM", label: "Hackathon — Kickoff" },
+        { time: "06:00 PM", label: "Gaming Fest — Prelims" },
+        { time: "08:00 PM", label: "Cultural Night" },
+      ],
+    },
+    {
+      day: "Day 02",
+      date: "July 12, 2026",
+      events: [
+        { time: "09:00 AM", label: "IUPC — Finals" },
+        { time: "10:00 AM", label: "Hackathon — Judging" },
+        { time: "11:30 AM", label: "Code Battle — Finals" },
+        { time: "01:00 PM", label: "Gaming Fest — Finals" },
+        { time: "03:00 PM", label: "Closing Ceremony & Prize Giving" },
+      ],
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-white" id="schedule">
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <span className="text-[#2E3A2E]/30 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+            — Schedule
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black text-[#2E3A2E] leading-none">
+            Two Days,
+            <br />
+            <span className="text-[#2E3A2E]/30">Unforgettable</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {days.map((day, di) => (
+            <motion.div
+              key={di}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: di * 0.15 }}
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-9 h-9 rounded-lg bg-[#2E3A2E] flex items-center justify-center text-white font-black text-xs">
+                  {di === 0 ? "D1" : "D2"}
+                </div>
+                <div>
+                  <div className="text-[#2E3A2E] font-black text-sm">
+                    {day.day}
+                  </div>
+                  <div className="text-[#2E3A2E]/40 text-xs">{day.date}</div>
+                </div>
+              </div>
+              <div className="space-y-0">
+                {day.events.map((evt, ei) => (
+                  <div
+                    key={ei}
+                    className="flex items-start gap-4 py-3 border-b border-gray-50 last:border-0"
+                  >
+                    <span className="text-[#2E3A2E]/30 text-xs font-mono font-bold w-16 shrink-0 leading-5">
+                      {evt.time}
+                    </span>
+                    <span className="text-[#2E3A2E]/70 text-sm leading-5">
+                      {evt.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Footer = () => (
   <footer className="bg-[#2E3A2E] text-white pt-20 pb-10">
     <div className="container mx-auto px-6">
@@ -688,6 +842,8 @@ export default function CarnivalLandingPage() {
       <Hero />
       <StatsSection />
       <Segments />
+      <AboutFest />
+      <Timeline />
       <Footer />
 
       <style jsx global>{`
