@@ -563,36 +563,6 @@ const Segments = () => (
           <EventNode key={event.num} event={event} index={i} />
         ))}
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="mt-10 relative overflow-hidden rounded-2xl bg-[#2E3A2E] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6"
-      >
-        <div
-          className="absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage:
-              "radial-gradient(#fff 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
-          }}
-        />
-        <div className="relative">
-          <h3 className="text-2xl md:text-3xl font-black text-white mb-1">
-            Ready to make history?
-          </h3>
-          <p className="text-white/50 text-sm">
-            July 11–12, 2026 · BAIUST Campus, Cumilla
-          </p>
-        </div>
-        <a
-          href="/register"
-          className="relative flex-shrink-0 bg-white text-[#2E3A2E] px-8 py-3.5 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg hover:scale-105 transition-all whitespace-nowrap"
-        >
-          Register Now →
-        </a>
-      </motion.div>
     </div>
   </section>
 );
@@ -717,8 +687,8 @@ const Timeline = () => {
               viewport={{ once: true }}
               transition={{ delay: di * 0.15 }}
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-9 h-9 rounded-lg bg-[#2E3A2E] flex items-center justify-center text-white font-black text-xs">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-10 h-10 rounded-xl bg-[#2E3A2E] flex items-center justify-center text-white font-black text-xs shadow-sm">
                   {di === 0 ? "D1" : "D2"}
                 </div>
                 <div>
@@ -728,18 +698,42 @@ const Timeline = () => {
                   <div className="text-[#2E3A2E]/40 text-xs">{day.date}</div>
                 </div>
               </div>
-              <div className="space-y-0">
+              <div className="relative pl-8">
+                <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-[#2E3A2E]/15" />
                 {day.events.map((evt, ei) => (
-                  <div
-                    key={ei}
-                    className="flex items-start gap-4 py-3 border-b border-gray-50 last:border-0"
-                  >
-                    <span className="text-[#2E3A2E]/30 text-xs font-mono font-bold w-16 shrink-0 leading-5">
-                      {evt.time}
-                    </span>
-                    <span className="text-[#2E3A2E]/70 text-sm leading-5">
-                      {evt.label}
-                    </span>
+                  <div key={ei} className="relative pb-6 last:pb-0">
+                    {ei < day.events.length - 1 && (
+                      <motion.div
+                        initial={{ scaleY: 0 }}
+                        whileInView={{ scaleY: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="absolute left-[-17px] top-[14px] bottom-0 w-0.5 bg-[#2E3A2E]/10"
+                        style={{ transformOrigin: "top center" }}
+                      />
+                    )}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.15, type: "spring", stiffness: 200 }}
+                      className="absolute left-[-21px] top-[6px] z-10"
+                    >
+                      <div className="w-[10px] h-[10px] rounded-full bg-white border-2 border-[#2E3A2E]/40 shadow-sm" />
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <span className="text-[#2E3A2E]/30 text-[11px] font-mono font-bold leading-none">
+                        {evt.time}
+                      </span>
+                      <p className="text-[#2E3A2E]/80 text-sm mt-1 leading-snug">
+                        {evt.label}
+                      </p>
+                    </motion.div>
                   </div>
                 ))}
               </div>
@@ -750,6 +744,42 @@ const Timeline = () => {
     </section>
   );
 };
+
+const CTABanner = () => (
+  <section className="py-16 bg-white border-t border-gray-50">
+    <div className="container mx-auto px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="relative overflow-hidden rounded-2xl bg-[#2E3A2E] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6"
+      >
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "radial-gradient(#fff 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+          }}
+        />
+        <div className="relative">
+          <h3 className="text-2xl md:text-3xl font-black text-white mb-1">
+            Ready to make history?
+          </h3>
+          <p className="text-white/50 text-sm">
+            July 11–12, 2026 · BAIUST Campus, Cumilla
+          </p>
+        </div>
+        <a
+          href="/register"
+          className="relative flex-shrink-0 bg-white text-[#2E3A2E] px-8 py-3.5 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg hover:scale-105 transition-all whitespace-nowrap"
+        >
+          Register Now →
+        </a>
+      </motion.div>
+    </div>
+  </section>
+);
 
 const Footer = () => (
   <footer className="bg-[#2E3A2E] text-white pt-20 pb-10">
@@ -844,6 +874,7 @@ export default function CarnivalLandingPage() {
       <Segments />
       <AboutFest />
       <Timeline />
+      <CTABanner />
       <Footer />
 
       <style jsx global>{`
